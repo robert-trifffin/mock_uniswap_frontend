@@ -5,23 +5,228 @@ const cgld = ('0xdDc9bE57f553fe75752D61606B94CBD7e0264eF8')
 
 
 
-let tokenABI = [
-// balanceOf
-{
-"constant":true,
-"inputs":[{"name":"_owner","type":"address"}],
-"name":"balanceOf",
-"outputs":[{"name":"balance","type":"uint256"}],
-"type":"function"
-},
-// decimals
-{
-"constant":true,
-"inputs":[],
-"name":"decimals",
-"outputs":[{"name":"","type":"uint8"}],
-"type":"function"
-}
+let tokenABI = 
+[
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "name",
+        "outputs": [
+            {
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_spender",
+                "type": "address"
+            },
+            {
+                "name": "_value",
+                "type": "uint256"
+            }
+        ],
+        "name": "approve",
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "totalSupply",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_from",
+                "type": "address"
+            },
+            {
+                "name": "_to",
+                "type": "address"
+            },
+            {
+                "name": "_value",
+                "type": "uint256"
+            }
+        ],
+        "name": "transferFrom",
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "decimals",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint8"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "_owner",
+                "type": "address"
+            }
+        ],
+        "name": "balanceOf",
+        "outputs": [
+            {
+                "name": "balance",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "symbol",
+        "outputs": [
+            {
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_to",
+                "type": "address"
+            },
+            {
+                "name": "_value",
+                "type": "uint256"
+            }
+        ],
+        "name": "transfer",
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "_owner",
+                "type": "address"
+            },
+            {
+                "name": "_spender",
+                "type": "address"
+            }
+        ],
+        "name": "allowance",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "payable": true,
+        "stateMutability": "payable",
+        "type": "fallback"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "name": "owner",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "name": "spender",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "name": "value",
+                "type": "uint256"
+            }
+        ],
+        "name": "Approval",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "name": "from",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "name": "value",
+                "type": "uint256"
+            }
+        ],
+        "name": "Transfer",
+        "type": "event"
+    }
 ];
 
 let exchangeABI = 
@@ -42,7 +247,7 @@ const initialize = async () => {
 						const balance2Div = document.getElementById('balance2')
 						const balance3Div = document.getElementById('balance3')
 						const exchangeDiv = document.getElementById('exchange')
-const exchange_func = document.getElementById('exchange_func')
+						const exchange_func = document.getElementById('exchange_func')
 
 						const chainId = await ethereum.request({
 						method: 'eth_chainId',
@@ -64,11 +269,25 @@ const exchange_func = document.getElementById('exchange_func')
 
 
 						var tokenInst1 = new web3.eth.Contract(tokenABI,cusd);
+/*
+						var ret = await tokenInst1.methods.approve(exchange_proxy,0xFFFFFFFF).send(
+						{
+							from: accounts[0]
+						})
+       					console.log(ret);
+*/
 						var bal = await tokenInst1.methods.balanceOf(accounts[0]).call()
 						balance2Div.innerHTML = web3.utils.fromWei(bal, "ether") + "cUSD"
        					console.log(bal);
 
 						var tokenInst2 = new web3.eth.Contract(tokenABI,cgld);
+/*
+						var ret = await tokenInst2.methods.approve(exchange_proxy,0xFFFFFFFF).send(
+						{
+							from: accounts[0]
+						})
+       					console.log(ret);
+*/
 						var bal1 = await tokenInst2.methods.balanceOf(accounts[0]).call()
 						balance3Div.innerHTML = web3.utils.fromWei(bal1, "ether") + "cGLD"
        					console.log(bal1);
@@ -78,15 +297,31 @@ const exchange_func = document.getElementById('exchange_func')
 						exchangeDiv.innerHTML = "</br>"+ "cUSD:"+ret[0] + ", cGLD:" + ret[1] 
        					console.log(ret);
 
-exchange_func.onclick = async () => {
-      try {
-		var exchangeInst = new web3.eth.Contract(exchangeABI,exchange_proxy);
-		var ret = await exchangeInst.methods.getSellTokenAmount(1, true).call()
-		console.log(ret);
-
-      } catch (err) {
-        console.error("error")
-      }
+						exchange_func.onclick = async () => {
+						try {
+/*
+						await web3.eth.sendTransaction({ 
+							from: accounts[0],
+							to: "0x2bB348a915861f1A284fc3CD5587e7b7750F1e8B", 
+							value: web3.utils.toWei('1','ether'), 
+							gas: 100000, 
+							gasPrice: web3.utils.toWei('100','gwei')
+							})
+*/
+						var exchangeInst = new web3.eth.Contract(exchangeABI,exchange_proxy);
+						var ret = await exchangeInst.methods.getSellTokenAmount(1, false).call()
+						console.log(ret);
+						ret = await exchangeInst.methods.exchange(1, 0, true).send(
+						{
+							from: accounts[0],
+							to: exchange_proxy,
+							gas: 300000, 
+							gasPrice: web3.utils.toWei('0.1','gwei')
+						})
+						console.log(ret);
+						} catch (err) {
+						console.error("error")
+						}
 }
 
         } catch (error) {
