@@ -294,7 +294,7 @@ const initialize = async () => {
 
 						var exchangeInst = new web3.eth.Contract(exchangeABI,exchange_proxy);
 						var ret = await exchangeInst.methods.getBuyAndSellBuckets(true).call()
-						exchangeDiv.innerHTML = "</br>"+ "cUSD:"+ret[0] + ", cGLD:" + ret[1] 
+						exchangeDiv.innerHTML = "</br>"+ "cUSD:"+web3.utils.fromWei(ret[0],"ether") + ", cGLD:" + web3.utils.fromWei(ret[1],"ether") 
        					console.log(ret);
 
 						exchange_func.onclick = async () => {
@@ -309,13 +309,11 @@ const initialize = async () => {
 							})
 */
 						var exchangeInst = new web3.eth.Contract(exchangeABI,exchange_proxy);
-						var ret = await exchangeInst.methods.getSellTokenAmount(1, false).call()
-						console.log(ret);
-						ret = await exchangeInst.methods.exchange(1, 0, true).send(
+						ret = await exchangeInst.methods.exchange(web3.utils.toWei('0.000000001','ether'), 0, true).send(
 						{
 							from: accounts[0],
 							to: exchange_proxy,
-							gas: 300000, 
+							gas: 400000, 
 							gasPrice: web3.utils.toWei('0.1','gwei')
 						})
 						console.log(ret);
