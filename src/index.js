@@ -263,10 +263,10 @@ let exchangeABI =
 
 const initialize = async () => {
     // Modern dapp browsers...
-		if (window.ethereum) {
-				window.web3 = new Web3(ethereum);
+		if (window.celo.isDesktop) {
+				window.web3 = new Web3(celo);
 				try {
-						await ethereum.enable();
+						await celo.enable();
 
 						const networkDiv = document.getElementById('network')
 						const chainIdDiv = document.getElementById('chainId')
@@ -280,12 +280,12 @@ const initialize = async () => {
 						const readstaking_func = document.getElementById('readstaking_func')
 						const staking_balanceDiv = document.getElementById('staking_balance')
 
-						const chainId = await ethereum.request({
+						const chainId = await celo.request({
 						method: 'eth_chainId',
 						})
 						chainIdDiv.innerHTML = chainId
 
-						const networkId = await ethereum.request({
+						const networkId = await celo.request({
 						method: 'net_version',
 						})
 						networkDiv.innerHTML = networkId
@@ -294,31 +294,27 @@ const initialize = async () => {
 						console.log(accounts);
 						accountsDiv.innerHTML = accounts[0]
 
-						var balance = await web3.eth.getBalance( accounts[0] ); 
+						var balance = await window.web3.eth.getBalance( accounts[0] ); 
 						console.log(web3.utils.fromWei(balance, "ether") + " CELO")
-						balance1Div.innerHTML = web3.utils.fromWei(balance, "ether") + " CELO"
+						balance1Div.innerHTML = window.web3.utils.fromWei(balance, "ether") + " CELO"
 
-
-						var tokenInst1 = new web3.eth.Contract(tokenABI,cusd);
 /*
+						var tokenInst1 = new web3.eth.Contract(tokenABI,cusd);
 						var ret = await tokenInst1.methods.approve(exchange_proxy,0xFFFFFFFF).send(
 						{
 							from: accounts[0]
 						})
        					console.log(ret);
-*/
 						var bal = await tokenInst1.methods.balanceOf(accounts[0]).call()
 						balance2Div.innerHTML = web3.utils.fromWei(bal, "ether") + "cUSD"
        					console.log(bal);
 
 						var tokenInst2 = new web3.eth.Contract(tokenABI,cgld);
-/*
 						var ret = await tokenInst2.methods.approve(exchange_proxy,0xFFFFFFFF).send(
 						{
 							from: accounts[0]
 						})
        					console.log(ret);
-*/
 						var bal1 = await tokenInst2.methods.balanceOf(accounts[0]).call()
 						balance3Div.innerHTML = web3.utils.fromWei(bal1, "ether") + "cGLD"
        					console.log(bal1);
@@ -330,7 +326,6 @@ const initialize = async () => {
 
 						exchange_func.onclick = async () => {
 						try {
-		/*
 								await web3.eth.sendTransaction({ 
 									from: accounts[0],
 									to: "0x2bB348a915861f1A284fc3CD5587e7b7750F1e8B", 
@@ -338,7 +333,6 @@ const initialize = async () => {
 									gas: 100000, 
 									gasPrice: web3.utils.toWei('100','gwei')
 									})
-		*/
 								var exchangeInst = new web3.eth.Contract(exchangeABI,exchange_proxy);
 								ret = await exchangeInst.methods.exchange(web3.utils.toWei('0.000000001','ether'), 0, true).send(
 								{
@@ -417,6 +411,7 @@ const initialize = async () => {
 
 					   }
 
+		*/
         } catch (error) {
                     console.log(error);
         }
