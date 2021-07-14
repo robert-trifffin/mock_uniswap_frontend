@@ -10,7 +10,7 @@
    <section>
 
         <h3 class="card-title">
-          Celo Swap Status
+          DSRV Uniswap Dapp
         </h3>
 
         <div class="row">
@@ -52,43 +52,54 @@
 
           <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
             <p class="info-text alert alert-success">
-              exchange data: <span id="exchange"></span>
+              Pool TK0 Balance: <span id="pool_balance0"></span>
             </p>
           </div>
 
+          <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+            <p class="info-text alert alert-success">
+              Pool TK1 Balance: <span id="pool_balance1"></span>
+            </p>
+          </div>
 
         </div>
       </section>
 
-
 		  <button
                   class="btn btn-primary btn-lg btn-block mb-3"
-                  id="exchange_func"
+                  id="create_pair_func"
           >
-          exchange 1 cGLD to cUSD
+          Create Pair
 		 </button>
 
 		  <button
                   class="btn btn-primary btn-lg btn-block mb-3"
-                  id="staking_func"
+                  id="add_liquidity_func"
           >
-		  staking to dsrv
+          Add Liquidity
 		 </button>
 
 		  <button
                   class="btn btn-primary btn-lg btn-block mb-3"
-                  id="readstaking_func"
+                  id="remove_liquidity_func"
           >
-		  my staking balace on dsrv
+          Remove Liqudity
 		 </button>
 
-          <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
-            <p class="info-text alert alert-success">
-              staking balance: <span id="staking_balance"></span>
-            </p>
-          </div>
 
+		  <button
+                  class="btn btn-primary btn-lg btn-block mb-3"
+                  id="swap_a2b_func"
+          >
+          Swap TK0 to TK1
+		 </button>
 
+		  <button
+                  class="btn btn-primary btn-lg btn-block mb-3"
+                  id="swap_b2a_func"
+          >
+          Swap TK1 to TK0
+		 </button>
 	</main>
     </body>
 </html>

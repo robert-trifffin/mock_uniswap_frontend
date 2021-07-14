@@ -1,12 +1,11 @@
 {
-  "name": "swap",
+  "name": "mock_uniswap_frontend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "web3": "git+https://github.com/dsrvlabs/web3-celo.js",
-    "ethereumjs-tx": "git+https://github.com/dsrvlabs/ethereumjs-tx-celo",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "web3": "^1.4.0"
   },
   "devDependencies": {
     "webpack": "^4.44.1",
@@ -14,9 +13,8 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "postinstall": "rm -rf node_mudules/web3-core/ node_mudules/web3-core-helpers/ node_mudules/web3-eth-contract/; cp -r node_modules/web3/packages/web3-core node_modules/; cp -r node_modules/web3/packages/web3-core-helpers node_modules/; cp -r node_modules/web3/packages/web3-eth-contract node_modules/; ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }
